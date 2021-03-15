@@ -1,0 +1,12 @@
+{
+  "editor.tabSize": 2,
+  "eslint.packageManager": "yarn",
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "/workspace/node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "[sql]": {
+    "editor.formatOnSave": false
+  }
+}

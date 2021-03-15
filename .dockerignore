@@ -1,0 +1,14 @@
+**/node_modules
+**/tmp
+**/build
+**/dist
+**/db
+
+**/Thumbs.db
+**/.DS_Store
+**/.cache
+
+**/.devcontainer
+**/.vscode
+.git
+

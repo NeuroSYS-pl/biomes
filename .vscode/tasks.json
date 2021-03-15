@@ -1,0 +1,35 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "packages/client/",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "Dev: Client",
+      "detail": "Continuously build frontend"
+    },
+    {
+      "type": "npm",
+      "script": "start:debug",
+      "path": "packages/server/",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "Dev: Server",
+      "detail": "Continuously build server"
+    },
+    {
+      "type": "shell",
+      "label": "Develop",
+      "dependsOn": ["Dev: Client", "Dev: Server"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": ["echo", "Task done!"]
+    }
+  ]
+}
