@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Asset {
+  uuid: ID!
+  digest: String!
+  compressed: Boolean!
+  filename: String!
+  status: AssetStatus!
+  authorship: Authorship!
+  url: String
+  invalidityReason: AssetInvalidityReason
+  invalidityTimestamp: DateTime
+  size: Float
+}
+
+enum AssetInvalidityReason {
+  TIMEOUT
+  CHECKSUM
+  INTERNAL
+}
+
+enum AssetStatus {
+  UPLOADING
+  PROCESSING
+  INVALID
+  READY
+}
+
+type Authorship {
+  created: DateTime!
+  modified: DateTime
+  createdBy: User!
+  modifiedBy: User
+}
+
+type Biome {
+  uuid: ID!
+  name: String!
+  description: String
+  link: String
+  authorship: Authorship!
+  species: [Species!]!
+}
+
+type Characteristic {
+  uuid: ID!
+  key: String!
+  value: String!
+  authorship: Authorship!
+}
+
+input CharacteristicInput {
+  key: String!
+  value: String!
+}
+
+input CreateAssetInput {
+  requestId: String!
+  expectedParts: Float!
+  filename: String!
+  digest: String!
+  compressed: Boolean!
+}
+
+input CreateBiomeInput {
+  name: String!
+  description: String
+  link: String
+}
+
+input CreateSpeciesInput {
+  tag: String!
+  description: String
+  link: String
+  biomes: [String!]
+  characteristics: [CharacteristicInput!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Habitat {
+  created: DateTime!
+  biome: Biome!
+  species: Species!
+  createdBy: User!
+}
+
+type Mutation {
+  createBiome(data: CreateBiomeInput!): Biome!
+  updateBiome(data: UpdateBiomeInput!): Biome!
+  deleteBiome(uuid: ID!): Boolean!
+  createSpecies(asset: CreateAssetInput!, data: CreateSpeciesInput!): Species!
+  updateSpecies(data: UpdateSpeciesInput!): Species!
+  createAsset(data: CreateAssetInput!): Asset!
+}
+
+type Query {
+  users: [User!]!
+  user(uuid: String!): User!
+  biome(name: String, uuid: ID): Biome!
+  biomes: [Biome!]!
+  species(biome: String, generation: Float, tag: String, uuid: ID): [Species!]!
+  asset(uuid: ID!): Asset!
+}
+
+type Species {
+  uuid: ID!
+  tag: String!
+  generation: Float!
+  description: String
+  link: String
+  habitats: [Habitat!]!
+  characteristics: [Characteristic!]!
+  authorship: Authorship!
+  asset: Asset!
+}
+
+input UpdateBiomeInput {
+  uuid: ID!
+  name: String
+  description: String
+  link: String
+}
+
+input UpdateSpeciesInput {
+  uuid: ID!
+  tag: String
+  description: String
+  link: String
+  biomes: [ID!]
+  characteristics: [CharacteristicInput!]
+}
+
+type User {
+  uuid: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  created: DateTime!
+  modified: DateTime
+}

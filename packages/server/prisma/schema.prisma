@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Migrations {
+  id        Int      @id
+  name      String
+  checksum  String
+  timestamp DateTime @default(now())
+
+  @@map("_migrations")
+}
+
+model Assets {
+  uuid               String                 @id
+  binary             String?
+  digest             String
+  compressed         Boolean
+  filename           String
+  status             AssetStatus
+  draftRequestId     String?
+  draftExpectedParts Int?
+  invalidReason      AssetInvalidityReason?
+  invalidTimestamp   DateTime?
+  created            DateTime               @default(now())
+  createdByUuid      String
+  modified           DateTime?
+  modifiedByUuid     String?
+  createdBy          Users                  @relation("AssetsCreatedBy", fields: [createdByUuid], references: [uuid])
+  modifiedBy         Users?                 @relation("AssetsModifiedBy", fields: [modifiedByUuid], references: [uuid])
+  fragments          Fragments[]
+  species            Species?
+}
+
+model Biomes {
+  uuid           String     @id
+  name           String
+  description    String?
+  link           String?
+  created        DateTime   @default(now())
+  createdByUuid  String
+  modified       DateTime?
+  modifiedByUuid String?
+  createdBy      Users      @relation("BiomesCreatedBy", fields: [createdByUuid], references: [uuid])
+  modifiedBy     Users?     @relation("BiomesModifiedBy", fields: [modifiedByUuid], references: [uuid])
+  habitats       Habitats[]
+}
+
+model Fragments {
+  uuid         String  @id
+  assetsByUuid String?
+  part         Int
+  binary       String
+  assets       Assets? @relation(fields: [assetsByUuid], references: [uuid])
+
+  @@unique([assetsByUuid, part], name: "assetPartKey")
+}
+
+model Species {
+  uuid            String            @id
+  tag             String
+  generation      Int
+  description     String?
+  link            String?
+  created         DateTime          @default(now())
+  createdByUuid   String
+  modified        DateTime?
+  modifiedByUuid  String?
+  assetByUuid     String            @unique
+  asset           Assets            @relation(fields: [assetByUuid], references: [uuid])
+  createdBy       Users             @relation("SpeciesCreatedBy", fields: [createdByUuid], references: [uuid])
+  modifiedBy      Users?            @relation("SpeciesModifiedBy", fields: [modifiedByUuid], references: [uuid])
+  characteristics Characteristics[]
+  habitats        Habitats[]
+
+  @@unique([tag, generation], name: "tagGenerationKey")
+}
+
+model Users {
+  uuid                    String            @id
+  email                   String            @unique
+  firstName               String
+  lastName                String
+  token                   String?
+  created                 DateTime          @default(now())
+  modified                DateTime?
+  createdAssets           Assets[]          @relation("AssetsCreatedBy")
+  modifiedAssets          Assets[]          @relation("AssetsModifiedBy")
+  createdBiomes           Biomes[]          @relation("BiomesCreatedBy")
+  modifiedBiomes          Biomes[]          @relation("BiomesModifiedBy")
+  createdCharacteristics  Characteristics[] @relation("CharacteristicsCreatedBy")
+  modifiedCharacteristics Characteristics[] @relation("CharacteristicsModifiedBy")
+  createdHabitats         Habitats[]
+  createdSpecies          Species[]         @relation("SpeciesCreatedBy")
+  modifiedSpecies         Species[]         @relation("SpeciesModifiedBy")
+
+  @@index([email], name: "Users.email")
+  @@index([token], name: "Users.token")
+}
+
+model Habitats {
+  uuid          String   @id
+  speciesByUuid String
+  biomesByUuid  String
+  created       DateTime @default(now())
+  createdByUuid String
+  biomes        Biomes   @relation(fields: [biomesByUuid], references: [uuid])
+  createdBy     Users    @relation(fields: [createdByUuid], references: [uuid])
+  species       Species  @relation(fields: [speciesByUuid], references: [uuid])
+
+  @@unique([speciesByUuid, biomesByUuid], name: "habitatsKey")
+  @@index([biomesByUuid], name: "Habitats.biomes")
+  @@index([speciesByUuid], name: "Habitats.species")
+}
+
+model Characteristics {
+  uuid           String    @id
+  key            String
+  value          String
+  speciesByUuid  String
+  created        DateTime  @default(now())
+  createdByUuid  String
+  modified       DateTime?
+  modifiedByUuid String?
+  createdBy      Users     @relation("CharacteristicsCreatedBy", fields: [createdByUuid], references: [uuid])
+  modifiedBy     Users?    @relation("CharacteristicsModifiedBy", fields: [modifiedByUuid], references: [uuid])
+  species        Species   @relation(fields: [speciesByUuid], references: [uuid])
+
+  @@unique([speciesByUuid, key], name: "speciesByKey")
+  @@index([speciesByUuid], name: "Characteristics.species")
+}
+
+enum AssetInvalidityReason {
+  timeout
+  checksum
+  internal
+}
+
+enum AssetStatus {
+  uploading
+  processing
+  invalid
+  ready
+}
