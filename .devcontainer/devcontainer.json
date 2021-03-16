@@ -13,7 +13,7 @@
 				"name": "Container database",
 				"driver": "PostgreSQL",
 				"previewLimit": 50,
-				"server": "localhost",
+				"server": "db",
 				"port": 5432,
 				"username": "postgres",
 				"password": "biomes-dev",
@@ -35,6 +35,6 @@
 		3000,
 		3001
 	],
-	"postCreateCommand": "yarn install",
+	"postCreateCommand": "SKIP_GENERATE='true' yarn install",
 	"remoteUser": "node"
 }

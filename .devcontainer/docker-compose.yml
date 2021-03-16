@@ -9,7 +9,7 @@ services:
         VARIANT: 14
     environment:
       TZ: Europe/Warsaw
-      DATABASE_URL: postgresql://postgres:biomes-dev@db:5432/biomes
+      DATABASE_URL: postgresql://postgres:biomes-dev@db:5432/biomes?schema=public
       CHECKPOINT_DISABLE: 1 # Disable Prisma telemetry
     volumes:
       - ..:/workspace:cached

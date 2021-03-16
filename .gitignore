@@ -1,3 +1,7 @@
+**/tmp
+**/build
+**/dist
+
 # Logs
 logs
 *.log

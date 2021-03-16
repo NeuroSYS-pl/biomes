@@ -1,0 +1,90 @@
+{
+  "name": "@biomes/server",
+  "version": "0.1.0",
+  "description": "Biomes Backend",
+  "keywords": [
+    "biomes",
+    "neurosys"
+  ],
+  "author": "NeuroSYS",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/NeuroSYS-pl/biomes",
+  "main": "dist/main",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "yarn prebuild && nest start",
+    "start:dev": "yarn prebuild && nest start --watch",
+    "start:debug": "yarn prebuild && nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "cli": "node dist/cli",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.6.5",
+    "@nestjs/core": "^7.6.5",
+    "@nestjs/cqrs": "^7.0.1",
+    "@nestjs/graphql": "^7.7.0",
+    "@nestjs/passport": "^7.1.5",
+    "@nestjs/platform-express": "^7.6.5",
+    "@nestjs/serve-static": "^2.1.4",
+    "@prisma/client": "^2.18.0",
+    "apollo-server-express": "^2.18.1",
+    "chalk": "^4.1.0",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
+    "commander": "^6.1.0",
+    "graphql": "^14.2.1",
+    "inquirer": "^7.3.3",
+    "js-yaml": "^4.0.0",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-http-bearer": "^1.0.1",
+    "pg": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.4",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^7.5.4",
+    "@nestjs/schematics": "^7.2.6",
+    "@nestjs/testing": "^7.6.5",
+    "@types/express": "^4.17.3",
+    "@types/inquirer": "^7.3.1",
+    "@types/jest": "^26.0.15",
+    "@types/js-yaml": "^4.0.0",
+    "@types/multer": "^1.4.4",
+    "@types/node": "^13.9.1",
+    "@types/passport-http-bearer": "^1.0.36",
+    "@types/pg": "^7.14.9",
+    "@types/supertest": "^2.0.8",
+    "jest": "26.4.2",
+    "prisma": "^2.18.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.4.4",
+    "ts-loader": "^6.2.1",
+    "ts-node": "9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

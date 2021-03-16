@@ -1,0 +1,7 @@
+**/db
+**/dist
+**/.cache
+**/public
+**/node_modules
+
+.eslintrc.js
