@@ -1,4 +1,4 @@
-import { Migrations } from '@prisma/client';
+import { Migrations } from '@biomes/prisma';
 
 export interface MigrationConfigRecord {
   readonly id: number;

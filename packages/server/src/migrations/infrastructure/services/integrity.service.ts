@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Migrations } from '@prisma/client';
+import { Migrations } from '@biomes/prisma';
 import { LocalMigrationDTO } from '../interfaces/dto';
 import { IntegrityError } from '../interfaces/exceptions';
 

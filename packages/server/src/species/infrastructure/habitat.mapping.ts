@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Habitats } from '@prisma/client';
+import { Prisma, Habitats } from '@biomes/prisma';
 import { Reference } from '../../core';
 import { HabitatDTO } from '../domain';
 import { HabitatModel } from '../domain/models/habitat.model';

@@ -6,11 +6,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "target": "esnext",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
+    "outDir": "dist",
+    "baseUrl": "src",
     "incremental": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "rootDir": "src",
+    "paths": {
+      "@biomes/*": ["packages/*/src"]
+    },
+  },
+  "exclude": ["test/**/*", "dist/**/*"]
 }
