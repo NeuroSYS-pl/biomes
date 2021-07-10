@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VARIANT: 14
+        VARIANT: 16
     environment:
       TZ: Europe/Warsaw
       DATABASE_URL: postgresql://postgres:biomes-dev@db:5432/biomes?schema=public

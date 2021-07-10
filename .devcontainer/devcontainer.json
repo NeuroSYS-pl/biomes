@@ -22,19 +22,20 @@
 		]
 	},
 	"extensions": [
-		"eamodio.gitlens",
+    "arcanis.vscode-zipfs",
 		"dbaeumer.vscode-eslint",
+		"eamodio.gitlens",
 		"esbenp.prettier-vscode",
+		"graphql.vscode-graphql",
 		"gruntfuggly.todo-tree",
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-pg",
-		"graphql.vscode-graphql",
 		"prisma.prisma"
 	],
 	"forwardPorts": [
 		3000,
 		3001
 	],
-	"postCreateCommand": "SKIP_GENERATE='true' yarn install",
+	"postCreateCommand": "yarn install",
 	"remoteUser": "node"
 }
