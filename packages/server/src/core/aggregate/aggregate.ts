@@ -6,7 +6,7 @@ import { AggregateInvalidState } from './exceptions/invalid-use';
 export abstract class Aggregate<
   M extends Model<DTO>,
   E extends IEvent = IEvent,
-  DTO = M extends Model<infer D> ? D : unknown
+  DTO = M extends Model<infer D> ? D : unknown,
 > extends AggregateRoot<E> {
   private state: M;
 

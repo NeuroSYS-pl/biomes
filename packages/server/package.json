@@ -11,7 +11,7 @@
   "repository": "https://github.com/NeuroSYS-pl/biomes",
   "main": "dist/main",
   "scripts": {
-    "prebuild": "rm -rf dist",
+    "prebuild": "rm -rf dist && rm tsconfig.build.tsbuildinfo",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "yarn prebuild && nest start",
