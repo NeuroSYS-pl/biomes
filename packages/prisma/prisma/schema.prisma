@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../../prisma"
+  output   = "../lib"
 }
 
 datasource db {
@@ -8,30 +8,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Migrations {
-  id        Int      @id
-  name      String
-  checksum  String
-  timestamp DateTime @default(now())
-
-  @@map("_migrations")
-}
-
 model Assets {
-  uuid               String                 @id
-  binary             String?
-  digest             String
-  compressed         Boolean
-  filename           String
+  uuid               String                 @id @db.Uuid
+  binary             String?                @db.Text
+  digest             String                 @db.Char(64)
+  compressed         Boolean                @db.Boolean
+  filename           String                 @db.Text
   status             AssetStatus
-  draftRequestId     String?
-  draftExpectedParts Int?
+  draftRequestId     String?                @db.Uuid
+  draftExpectedParts Int?                   @db.Integer
   invalidReason      AssetInvalidityReason?
-  invalidTimestamp   DateTime?
-  created            DateTime               @default(now())
-  createdByUuid      String
-  modified           DateTime?
-  modifiedByUuid     String?
+  invalidTimestamp   DateTime?              @db.Timestamptz(3)
+  created            DateTime               @default(now()) @db.Timestamptz(3)
+  createdByUuid      String                 @db.Uuid
+  modified           DateTime?              @db.Timestamptz(3)
+  modifiedByUuid     String?                @db.Uuid
   createdBy          Users                  @relation("AssetsCreatedBy", fields: [createdByUuid], references: [uuid])
   modifiedBy         Users?                 @relation("AssetsModifiedBy", fields: [modifiedByUuid], references: [uuid])
   fragments          Fragments[]
@@ -39,40 +30,40 @@ model Assets {
 }
 
 model Biomes {
-  uuid           String     @id
-  name           String
-  description    String?
-  link           String?
-  created        DateTime   @default(now())
-  createdByUuid  String
-  modified       DateTime?
-  modifiedByUuid String?
+  uuid           String     @id @db.Uuid
+  name           String     @db.Text
+  description    String?    @db.Text
+  link           String?    @db.Text
+  created        DateTime   @default(now()) @db.Timestamptz(3)
+  createdByUuid  String     @db.Uuid
+  modified       DateTime?  @db.Timestamptz(3)
+  modifiedByUuid String?    @db.Uuid
   createdBy      Users      @relation("BiomesCreatedBy", fields: [createdByUuid], references: [uuid])
   modifiedBy     Users?     @relation("BiomesModifiedBy", fields: [modifiedByUuid], references: [uuid])
   habitats       Habitats[]
 }
 
 model Fragments {
-  uuid         String  @id
-  assetsByUuid String?
-  part         Int
-  binary       String
+  uuid         String  @id @db.Uuid
+  assetsByUuid String? @db.Uuid
+  part         Int     @db.Integer
+  binary       String  @db.Text
   assets       Assets? @relation(fields: [assetsByUuid], references: [uuid])
 
   @@unique([assetsByUuid, part], name: "assetPartKey")
 }
 
 model Species {
-  uuid            String            @id
-  tag             String
-  generation      Int
-  description     String?
-  link            String?
-  created         DateTime          @default(now())
-  createdByUuid   String
-  modified        DateTime?
-  modifiedByUuid  String?
-  assetByUuid     String            @unique
+  uuid            String            @id @db.Uuid
+  tag             String            @db.Text
+  generation      Int               @db.Integer
+  description     String?           @db.Text
+  link            String?           @db.Text
+  created         DateTime          @default(now()) @db.Timestamptz(3)
+  createdByUuid   String            @db.Uuid
+  modified        DateTime?         @db.Timestamptz(3)
+  modifiedByUuid  String?           @db.Uuid
+  assetByUuid     String            @unique @db.Uuid
   asset           Assets            @relation(fields: [assetByUuid], references: [uuid])
   createdBy       Users             @relation("SpeciesCreatedBy", fields: [createdByUuid], references: [uuid])
   modifiedBy      Users?            @relation("SpeciesModifiedBy", fields: [modifiedByUuid], references: [uuid])
@@ -83,13 +74,13 @@ model Species {
 }
 
 model Users {
-  uuid                    String            @id
-  email                   String            @unique
-  firstName               String
-  lastName                String
-  token                   String?
-  created                 DateTime          @default(now())
-  modified                DateTime?
+  uuid                    String            @id @db.Uuid
+  email                   String            @unique @db.Text
+  firstName               String            @db.Text
+  lastName                String            @db.Text
+  token                   String?           @db.Char(64)
+  created                 DateTime          @default(now()) @db.Timestamptz(3)
+  modified                DateTime?         @db.Timestamptz(3)
   createdAssets           Assets[]          @relation("AssetsCreatedBy")
   modifiedAssets          Assets[]          @relation("AssetsModifiedBy")
   createdBiomes           Biomes[]          @relation("BiomesCreatedBy")
@@ -105,11 +96,11 @@ model Users {
 }
 
 model Habitats {
-  uuid          String   @id
-  speciesByUuid String
-  biomesByUuid  String
-  created       DateTime @default(now())
-  createdByUuid String
+  uuid          String   @id @db.Uuid
+  speciesByUuid String   @db.Uuid
+  biomesByUuid  String   @db.Uuid
+  created       DateTime @default(now()) @db.Timestamptz(3)
+  createdByUuid String   @db.Uuid
   biomes        Biomes   @relation(fields: [biomesByUuid], references: [uuid])
   createdBy     Users    @relation(fields: [createdByUuid], references: [uuid])
   species       Species  @relation(fields: [speciesByUuid], references: [uuid])
@@ -120,14 +111,14 @@ model Habitats {
 }
 
 model Characteristics {
-  uuid           String    @id
-  key            String
-  value          String
-  speciesByUuid  String
-  created        DateTime  @default(now())
-  createdByUuid  String
-  modified       DateTime?
-  modifiedByUuid String?
+  uuid           String    @id @db.Uuid
+  key            String    @db.VarChar(255)
+  value          String    @db.Text
+  speciesByUuid  String    @db.Uuid
+  created        DateTime  @default(now()) @db.Timestamptz(3)
+  createdByUuid  String    @db.Uuid
+  modified       DateTime? @db.Timestamptz(3)
+  modifiedByUuid String?   @db.Uuid
   createdBy      Users     @relation("CharacteristicsCreatedBy", fields: [createdByUuid], references: [uuid])
   modifiedBy     Users?    @relation("CharacteristicsModifiedBy", fields: [modifiedByUuid], references: [uuid])
   species        Species   @relation(fields: [speciesByUuid], references: [uuid])

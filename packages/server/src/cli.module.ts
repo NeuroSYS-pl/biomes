@@ -3,15 +3,13 @@ import { Command, createCommand } from 'commander';
 import { CqrsModule } from '@nestjs/cqrs';
 import { Commander } from './tags';
 import { AppModule } from './app.module';
-import { MigrationsModule, MigrationsCLI } from './migrations';
 import { UsersModule, UsersCLI } from './users';
 import { AssetsModule, AssetsCLI } from './assets';
 
 @Module({
-  imports: [CqrsModule, AppModule, MigrationsModule, UsersModule, AssetsModule],
+  imports: [CqrsModule, AppModule, UsersModule, AssetsModule],
   providers: [
     { provide: Commander, useValue: createCommand() },
-    MigrationsCLI,
     UsersCLI,
     AssetsCLI,
   ],
