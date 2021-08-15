@@ -4,10 +4,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
     tsconfigRootDir: __dirname,
-    project: [
-      './tsconfig.eslint.json',
-      './packages/*/tsconfig.json',
-    ],
+    project: ['./tsconfig.eslint.json', './packages/*/tsconfig.json'],
   },
   root: true,
   env: {
@@ -18,22 +15,14 @@ module.exports = {
   },
   extends: [
     'airbnb-typescript',
-    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'prettier/react',
-    'prettier/@typescript-eslint',
+    'prettier',
   ],
-  plugins: [
-    '@typescript-eslint',
-    'react'
-  ],
+  plugins: ['@typescript-eslint', 'react', 'import'],
   rules: {
     'class-methods-use-this': 'off',
-    'no-else-return': [
-      'error',
-      { allowElseIf: true },
-    ],
+    'no-else-return': ['error', { allowElseIf: true }],
     'import/no-cycle': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -48,11 +37,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          '**/*.test.ts',
-          '**/*.spec.ts',
-          '**/*.e2e-spec.ts',
-        ],
+        devDependencies: ['**/*.test.ts', '**/*.spec.ts', '**/*.e2e-spec.ts'],
       },
     ],
     'prettier/prettier': 'error',
