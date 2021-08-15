@@ -49,14 +49,15 @@ export class AssetSaga {
 
   private removeFragments$ = (asset: Reference): Observable<ICommand> =>
     of(asset).pipe(
-      rx.mergeMap(this.getFragments),
+      rx.mergeMap(asset => this.getFragments(asset)),
       rx.mergeAll(),
       rx.pluck('uuid'),
       rx.map(fragment => new Commands.DeleteFragmentCommand(fragment)),
     );
 
-  private getFragments = (asset: Reference): Promise<FragmentDTO[]> =>
-    this.queryBus.execute(
+  private getFragments(asset: Reference): Promise<FragmentDTO[]> {
+    return this.queryBus.execute(
       new Queries.GetFragmentQuery('many', { asset: asset.uuid }),
     );
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Migrations, Prisma } from '@prisma/client';
+import { Migrations, Prisma } from '@biomes/prisma';
 import { MigrationAggregate, MigrationDTO, MigrationStatus } from '../domain';
 import { LocalMigrationDTO } from './interfaces/dto';
 

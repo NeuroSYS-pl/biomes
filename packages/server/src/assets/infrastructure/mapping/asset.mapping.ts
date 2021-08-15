@@ -4,7 +4,7 @@ import {
   Assets,
   AssetInvalidityReason,
   AssetStatus,
-} from '@prisma/client';
+} from '@biomes/prisma';
 import { EnumMapper, Reference, UUID } from '../../../core';
 import { AssetAggregate, AssetDTO } from '../../domain';
 import {

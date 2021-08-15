@@ -2,39 +2,49 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.140.1/containers/javascript-node-postgres
 // Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14 
 {
-	"name": "Biomes",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspace",
-	"settings": {
-		"terminal.integrated.shell.linux": "/usr/bin/zsh",
-		"sqltools.connections": [
-			{
-				"name": "Container database",
-				"driver": "PostgreSQL",
-				"previewLimit": 50,
-				"server": "db",
-				"port": 5432,
-				"username": "postgres",
-				"password": "biomes-dev",
-				"database": "biomes",
-			}
-		]
-	},
-	"extensions": [
-		"eamodio.gitlens",
-		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode",
-		"gruntfuggly.todo-tree",
-		"mtxr.sqltools",
-		"mtxr.sqltools-driver-pg",
-		"graphql.vscode-graphql",
-		"prisma.prisma"
-	],
-	"forwardPorts": [
-		3000,
-		3001
-	],
-	"postCreateCommand": "SKIP_GENERATE='true' yarn install",
-	"remoteUser": "node"
+  "name": "Biomes",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "bash",
+        "icon": "terminal-bash"
+      },
+      "zsh": {
+        "path": "zsh"
+      },
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "sqltools.connections": [
+      {
+        "name": "Container database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "db",
+        "port": 5432,
+        "username": "postgres",
+        "password": "biomes-dev",
+        "database": "biomes",
+      }
+    ]
+  },
+  "extensions": [
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "graphql.vscode-graphql",
+    "gruntfuggly.todo-tree",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "prisma.prisma"
+  ],
+  "forwardPorts": [
+    3000,
+    3001
+  ],
+  "postCreateCommand": "yarn install",
+  "remoteUser": "node"
 }

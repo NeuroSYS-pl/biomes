@@ -4,9 +4,18 @@
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
   "editor.formatOnSave": true,
-  "typescript.tsdk": "/workspace/node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
   "[sql]": {
     "editor.formatOnSave": false
-  }
+  },
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "sqltools.autoOpenSessionFiles": false,
+  "sqltools.autoConnectTo": "Container database"
 }

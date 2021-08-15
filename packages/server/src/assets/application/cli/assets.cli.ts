@@ -77,8 +77,9 @@ export class AssetsCLI {
   }
 
   private async listInvalidAssets(): Promise<void> {
+    const all = this.program.args.includes('--all');
     const invalidAssets = await this.queryBus.execute(
-      new Queries.GetInvalidAssetsQuery(!!this.program.all),
+      new Queries.GetInvalidAssetsQuery(all),
     );
     // eslint-disable-next-line no-console
     console.table(invalidAssets, ['uuid', 'filename', 'created']);

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Fragments } from '@prisma/client';
+import { Prisma, Fragments } from '@biomes/prisma';
 import { Reference } from '../../../core';
 import { FragmentAggregate, FragmentDTO } from '../../domain';
 

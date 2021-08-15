@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Users } from '@prisma/client';
+import { Prisma, Users } from '@biomes/prisma';
 import { UserAggregate, UserDTO } from '../domain';
 
 @Injectable()

@@ -5,7 +5,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { yellow, blue } from 'chalk';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@biomes/prisma';
 
 @Injectable()
 export class PrismaService implements OnModuleInit, OnModuleDestroy {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Characteristics } from '@prisma/client';
+import { Prisma, Characteristics } from '@biomes/prisma';
 import { Reference } from '../../core';
 import { CharacteristicDTO } from '../domain';
 import { CharacteristicModel } from '../domain/models/characteristics.model';

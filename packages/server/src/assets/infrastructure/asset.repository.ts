@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { AssetStatus } from '@prisma/client';
+import { AssetStatus } from '@biomes/prisma';
 import { PrismaService } from '../../common/prisma';
 import { UUID } from '../../core';
 import { AssetDTO, FragmentDTO, IAssetRepository } from '../domain/interfaces';

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Species, Habitats, Characteristics } from '@prisma/client';
+import { Prisma, Species, Habitats, Characteristics } from '@biomes/prisma';
 import { Reference } from '../../core';
 import { SpeciesDTO, SpeciesAggregate } from '../domain';
 import { CharacteristicMapping } from './characteristic.mapping';
@@ -94,10 +94,11 @@ export class SpeciesMapping {
             ? removedHabitats.map(uuid => ({ uuid }))
             : undefined,
       },
-      characteristics: this.characteristicMapping.mapModelCollectionToUpdateEntity(
-        model.characteristics,
-        entity.characteristics,
-      ),
+      characteristics:
+        this.characteristicMapping.mapModelCollectionToUpdateEntity(
+          model.characteristics,
+          entity.characteristics,
+        ),
     };
 
     return species;

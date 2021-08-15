@@ -4,18 +4,16 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "start",
-      "path": "packages/client/",
+      "type": "shell",
+      "command": ["yarn", "workspace", "@biomes/web", "run", "start"],
       "group": "build",
       "problemMatcher": [],
       "label": "Dev: Client",
       "detail": "Continuously build frontend"
     },
     {
-      "type": "npm",
-      "script": "start:debug",
-      "path": "packages/server/",
+      "type": "shell",
+      "command": ["yarn", "workspace", "@biomes/server", "run", "start:debug"],
       "group": "build",
       "problemMatcher": [],
       "label": "Dev: Server",
